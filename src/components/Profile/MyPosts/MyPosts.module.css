@@ -1,0 +1,35 @@
+.textarea{
+  resize: none;
+  width: 100%;
+  border: none;
+  margin-left: 15px;
+}
+.textarea:focus{
+  outline: none !important;
+}
+.post{
+  margin-top: 20px;
+  padding: 12px 16px!important;
+  background: #fff !important;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+  border-radius: 11px;
+
+}
+.ava{
+  width: 60px !important;
+  height: 60px;
+  border-radius: 50%;
+}
+.postTop{
+  align-items: center;
+  display: flex;
+}
+
+.iconSend{
+  height: 30px;
+}
+
+button{
+  border: none;
+  cursor: pointer;
+}
