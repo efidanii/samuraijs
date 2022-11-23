@@ -1,7 +1,6 @@
-import {
-    renderEntireTree
-} from '../render'
-
+let renderEntireTree = () => {
+    console.log('1')
+}
 let state = {
     myPostsDate: {
         MyName: 'Daniel Efimenko',
@@ -24,7 +23,8 @@ let state = {
                 date: '10 Nov.',
                 likes: 0
             },
-        ]
+        ],
+        newPostText: "what's new?"
     },
     dialogsData: {
         messages: [{
@@ -59,8 +59,7 @@ let state = {
     }
 }
 
-
-
+window.state = state;
 export let addPost = (postMassage) => {
     let nowDate = () => {
         const monthNames = [
@@ -87,6 +86,13 @@ export let addPost = (postMassage) => {
     }
     state.myPostsDate.postData.unshift(newPost);
     renderEntireTree(state)
+}
+export let updateNewPostText = (newText) => {
+    state.myPostsDate.newPostText  =  newText;
+    renderEntireTree(state)
+}
+export const subscribe = (observer) => {
+    renderEntireTree  = observer;
 }
 
 export default state;
