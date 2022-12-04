@@ -1,31 +1,27 @@
 import React from 'react';
 import style from './MyPosts.module.css';
 import Post from './Post/Post';
-
+import {updateNewPostActionCreator, addPostActionCreator} from '../../../redux/state'
 
 const MyPosts = (props) => {
 
   let posts = props.myPostsDate.postData.map(post => <Post name={props.myPostsDate.MyName} avatarSrc={props.myPostsDate.MyAvatar} date={post.date} text={post.text} likes={post.likes} />)
   
-  
+
   let newPostElement = React.createRef();
   let addPost = () => {
-
-        props.dispatch({type: 'ADD-POST'} )
-        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: "what's new?"}) 
-
-
+        props.dispatch(addPostActionCreator())
+        props.dispatch(updateNewPostActionCreator("what's new?"))
       }, 
       onChangePost = () => {
         let text = newPostElement.current.value
-        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: text})
+        props.dispatch(updateNewPostActionCreator(text))
       },
       onEnterPress = (e) =>{
         if(e.keyCode == 13 && e.shiftKey == false) {
           e.preventDefault();
-
-          props.dispatch({type: 'ADD-POST'} )
-          props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: "what's new?"}) 
+          props.dispatch(addPostActionCreator()) 
+          props.dispatch(updateNewPostActionCreator("what's new?"))
         }
       }
 

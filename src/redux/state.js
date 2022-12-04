@@ -1,3 +1,6 @@
+const addPost = 'ADD-POST',
+      updateNewPostText = 'UPDATE-NEW-POST-TEXT'
+
 let store = {
     _state: {
         myPostsDate: {
@@ -102,6 +105,13 @@ let store = {
         }
     }
 }
+export const addPostActionCreator = () => ({type: addPost})
 
+export const updateNewPostActionCreator = (text) => {
+  return {
+    type: updateNewPostText,
+    newText: text
+  }
+}
 export default store;
 window.store = store;
