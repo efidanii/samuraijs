@@ -1,98 +1,102 @@
-let renderEntireTree = () => {
-    console.log('1')
-}
-let state = {
-    myPostsDate: {
-        MyName: 'Daniel Efimenko',
-        MyAvatar: 'https://pbs.twimg.com/media/E247SyoVEAUskkc.jpg',
-        postData: [{
-                id: 0,
-                text: 'Я классный парень',
-                date: '12 Nov.',
-                likes: 12323
-            },
-            {
-                id: 1,
-                text: 'Посмотрел человека паука ВО!',
-                date: '11 Nov.',
-                likes: 2
-            },
-            {
-                id: 2,
-                text: 'Мой первый пост',
-                date: '10 Nov.',
-                likes: 0
-            },
-        ],
-        newPostText: "what's new?"
+let store = {
+    _state: {
+        myPostsDate: {
+            MyName: 'Daniel Efimenko',
+            MyAvatar: 'https://pbs.twimg.com/media/E247SyoVEAUskkc.jpg',
+            postData: [{
+                    id: 0,
+                    text: 'Я классный парень',
+                    date: '12 Nov.',
+                    likes: 12323
+                },
+                {
+                    id: 1,
+                    text: 'Посмотрел человека паука ВО!',
+                    date: '11 Nov.',
+                    likes: 2
+                },
+                {
+                    id: 2,
+                    text: 'Мой первый пост',
+                    date: '10 Nov.',
+                    likes: 0
+                },
+            ],
+            newPostText: "what's new?"
+        },
+        dialogsData: {
+            messages: [{
+                    id: 0,
+                    name: 'Hi'
+                },
+                {
+                    id: 1,
+                    name: 'Yo!'
+                },
+                {
+                    id: 2,
+                    name: 'Привит!'
+                },
+            ],
+            dialogs: [{
+                    id: 0,
+                    avaSrc: "https://pbs.twimg.com/media/E33s-FAXwAos7K8.jpg",
+                    name: 'Max'
+                },
+                {
+                    id: 1,
+                    avaSrc: "https://avatars.mds.yandex.net/i?id=61a4011d2b24f773b541f1a57a3e4b20-4034691-images-thumbs&n=13",
+                    name: 'Igor'
+                },
+                {
+                    id: 2,
+                    avaSrc: "https://pbs.twimg.com/media/E9TNC5VWYAAuP2j.jpg",
+                    name: 'Kolya'
+                },
+            ]
+        }
     },
-    dialogsData: {
-        messages: [{
-                id: 0,
-                name: 'Hi'
-            },
-            {
-                id: 1,
-                name: 'Yo!'
-            },
-            {
-                id: 2,
-                name: 'Привит!'
-            },
-        ],
-        dialogs: [{
-                id: 0,
-                avaSrc: "https://pbs.twimg.com/media/E33s-FAXwAos7K8.jpg",
-                name: 'Max'
-            },
-            {
-                id: 1,
-                avaSrc: "https://avatars.mds.yandex.net/i?id=61a4011d2b24f773b541f1a57a3e4b20-4034691-images-thumbs&n=13",
-                name: 'Igor'
-            },
-            {
-                id: 2,
-                avaSrc: "https://pbs.twimg.com/media/E9TNC5VWYAAuP2j.jpg",
-                name: 'Kolya'
-            },
-        ]
+    getState(){
+        return this._state;
+    },
+    renderEntireTree() {
+        console.log('1')
+    },
+    addPost(postMassage) {
+        let nowDate = () => {
+            const monthNames = [
+                    "Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "May",
+                    "Jun",
+                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                ];
+            let data = new Date(),
+                dd = data.getDate(),
+                mm = data.getMonth();
+    
+            return `${dd} ${monthNames[mm]}.`
+        }
+    
+        let newPost = {
+            id: 5,
+            text: postMassage,
+            date: nowDate(),
+            likes: 0
+        }
+        this._state.myPostsDate.postData.unshift(newPost);
+        this._renderEntireTree(this._state)
+    },
+    updateNewPostText(newText) {
+        this._state.myPostsDate.newPostText = newText;
+        this._renderEntireTree(this._state)
+    },
+    subscribe (observer) {
+        this._renderEntireTree  = observer;
     }
 }
 
-window.state = state;
-export let addPost = (postMassage) => {
-    let nowDate = () => {
-        const monthNames = [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-            ];
-        let data = new Date(),
-            dd = data.getDate(),
-            mm = data.getMonth();
-
-        return `${dd} ${monthNames[mm]}.`
-    }
-
-    let newPost = {
-        id: 5,
-        text: postMassage,
-        date: nowDate(),
-        likes: 0
-    }
-    state.myPostsDate.postData.unshift(newPost);
-    renderEntireTree(state)
-}
-export let updateNewPostText = (newText) => {
-    state.myPostsDate.newPostText  =  newText;
-    renderEntireTree(state)
-}
-export const subscribe = (observer) => {
-    renderEntireTree  = observer;
-}
-
-export default state;
+export default store;
+window.store = store;

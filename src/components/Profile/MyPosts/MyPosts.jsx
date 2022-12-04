@@ -10,13 +10,22 @@ const MyPosts = (props) => {
   
   let newPostElement = React.createRef();
   let addPost = () => {
-      let text = newPostElement.current.value
-      props.addPost(text)
-      props.updateNewPostText("what's new?") 
-  }
-  let onChangePost = () => {
-    props.updateNewPostText()
-  }
+        let text = newPostElement.current.value
+        props.addPost(text)
+        props.updateNewPostText("what's new?") 
+      }, 
+      onChangePost = () => {
+        let text = newPostElement.current.value
+        props.updateNewPostText(text)
+      },
+      onEnterPress = (e) =>{
+        if(e.keyCode == 13 && e.shiftKey == false) {
+          e.preventDefault();
+          let text = newPostElement.current.value
+          props.addPost(text)
+          props.updateNewPostText("what's new?") 
+        }
+      }
 
 
   return (
@@ -27,7 +36,7 @@ const MyPosts = (props) => {
         <div className={style.postTop}>
           <img className={style.ava} src={props.myPostsDate.MyAvatar} alt=""/>
 
-          <textarea onChange={onChangePost} ref={newPostElement} className={style.textarea} value={props.myPostsDate.newPostText}/>
+          <textarea onChange={onChangePost} onKeyDown={onEnterPress} ref={newPostElement} className={style.textarea} value={props.myPostsDate.newPostText}/>
 
           <button onClick={addPost}><img className={style.iconSend} src="https://cdn1.iconfinder.com/data/icons/communicate/512/send-512.png" alt="" /></button>
         </div>
