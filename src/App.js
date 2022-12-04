@@ -17,7 +17,7 @@ function App(props) {
         <div className="content">
           <Routes>
               <Route path='/dialogs/*' element={<Dialogs dialogsData={props.state.dialogsData}/>}/>
-              <Route path='/profile'  element={<Profile myPostsDate={props.state.myPostsDate} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>}/>
+              <Route path='/profile'  element={<Profile myPostsDate={props.state.myPostsDate} dispatch={props.dispatch}/>}/>
           </Routes>
         </div>
     </div>

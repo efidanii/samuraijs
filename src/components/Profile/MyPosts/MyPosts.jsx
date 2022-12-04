@@ -10,20 +10,22 @@ const MyPosts = (props) => {
   
   let newPostElement = React.createRef();
   let addPost = () => {
-        let text = newPostElement.current.value
-        props.addPost(text)
-        props.updateNewPostText("what's new?") 
+
+        props.dispatch({type: 'ADD-POST'} )
+        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: "what's new?"}) 
+
+
       }, 
       onChangePost = () => {
         let text = newPostElement.current.value
-        props.updateNewPostText(text)
+        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: text})
       },
       onEnterPress = (e) =>{
         if(e.keyCode == 13 && e.shiftKey == false) {
           e.preventDefault();
-          let text = newPostElement.current.value
-          props.addPost(text)
-          props.updateNewPostText("what's new?") 
+
+          props.dispatch({type: 'ADD-POST'} )
+          props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: "what's new?"}) 
         }
       }
 

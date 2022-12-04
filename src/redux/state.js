@@ -56,45 +56,50 @@ let store = {
             ]
         }
     },
-    getState(){
-        return this._state;
-    },
-    renderEntireTree() {
+    _callSubscriber() {
         console.log('1')
     },
-    addPost(postMassage) {
-        let nowDate = () => {
-            const monthNames = [
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-                ];
-            let data = new Date(),
-                dd = data.getDate(),
-                mm = data.getMonth();
-    
-            return `${dd} ${monthNames[mm]}.`
-        }
-    
-        let newPost = {
-            id: 5,
-            text: postMassage,
-            date: nowDate(),
-            likes: 0
-        }
-        this._state.myPostsDate.postData.unshift(newPost);
-        this._renderEntireTree(this._state)
-    },
-    updateNewPostText(newText) {
-        this._state.myPostsDate.newPostText = newText;
-        this._renderEntireTree(this._state)
-    },
+
+
+    getState(){
+        return this._state;
+    },  
     subscribe (observer) {
-        this._renderEntireTree  = observer;
+        this._callSubscriber  = observer;
+    },
+
+    dispatch(action){
+        if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.myPostsDate.newPostText = action.newText;
+            this._callSubscriber(this._state)
+        } else 
+        if (action.type === 'ADD-POST'){
+            let nowDate = () => {
+                const monthNames = [
+                        "Jan",
+                        "Feb",
+                        "Mar",
+                        "Apr",
+                        "May",
+                        "Jun",
+                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                    ];
+                let data = new Date(), 
+                    dd = data.getDate(),
+                    mm = data.getMonth();
+        
+                return `${dd} ${monthNames[mm]}.`
+            }
+        
+            let newPost = {
+                id: 5,
+                text: this._state.myPostsDate.newPostText,
+                date: nowDate(),
+                likes: 0
+            }
+            this._state.myPostsDate.postData.unshift(newPost);
+            this._callSubscriber(this._state)
+        }
     }
 }
 
