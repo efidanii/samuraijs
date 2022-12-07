@@ -3,6 +3,10 @@
   width: 100%;
   border: none;
   margin-left: 15px;
+  font-family: dm sans,sans-serif;
+  padding: 8px;
+  box-sizing: border-box;
+  height: 30px;
 }
 .textarea:focus{
   outline: none !important;

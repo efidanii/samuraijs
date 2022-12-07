@@ -16,7 +16,7 @@ function App(props) {
       <Navbar/>
         <div className="content">
           <Routes>
-              <Route path='/dialogs/*' element={<Dialogs dialogsData={props.state.dialogsData}/>}/>
+              <Route path='/dialogs/*' element={<Dialogs dialogsData={props.state.dialogsData} dispatch={props.dispatch}/>}/>
               <Route path='/profile'  element={<Profile myPostsDate={props.state.myPostsDate} dispatch={props.dispatch}/>}/>
           </Routes>
         </div>

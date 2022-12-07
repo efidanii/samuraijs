@@ -27,3 +27,32 @@
 .messages{
     margin-left: 20px;
 }
+button{
+    border: none;
+    cursor: pointer;
+  }
+.textarea{
+    resize: none;
+    height: 35.5px;
+    box-sizing: border-box;
+    padding: 8px;
+    font-family: dm sans,sans-serif;
+    justify-content: center;
+    border: 1px solid #EDEDED;
+    background: #EDEDED;
+    width: calc(100% - 30px);
+}
+.textarea:focus{
+    outline: none;
+}
+.iconSend{
+    height: 30px;
+    box-sizing: border-box;
+}
+.textareaAndButton{
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

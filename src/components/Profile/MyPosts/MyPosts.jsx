@@ -10,8 +10,10 @@ const MyPosts = (props) => {
 
   let newPostElement = React.createRef();
   let addPost = () => {
-        props.dispatch(addPostActionCreator())
-        props.dispatch(updateNewPostActionCreator("what's new?"))
+    if (newPostElement.current.value != 0){
+      props.dispatch(addPostActionCreator())
+      props.dispatch(updateNewPostActionCreator(""))
+    }
       }, 
       onChangePost = () => {
         let text = newPostElement.current.value
@@ -19,9 +21,11 @@ const MyPosts = (props) => {
       },
       onEnterPress = (e) =>{
         if(e.keyCode == 13 && e.shiftKey == false) {
-          e.preventDefault();
-          props.dispatch(addPostActionCreator()) 
-          props.dispatch(updateNewPostActionCreator("what's new?"))
+          if (newPostElement.current.value != 0){
+            e.preventDefault();
+            props.dispatch(addPostActionCreator()) 
+            props.dispatch(updateNewPostActionCreator(""))
+          }
         }
       }
 
@@ -34,7 +38,7 @@ const MyPosts = (props) => {
         <div className={style.postTop}>
           <img className={style.ava} src={props.myPostsDate.MyAvatar} alt=""/>
 
-          <textarea onChange={onChangePost} onKeyDown={onEnterPress} ref={newPostElement} className={style.textarea} value={props.myPostsDate.newPostText}/>
+          <textarea placeholder="Whtat's new?" onChange={onChangePost} onKeyDown={onEnterPress} ref={newPostElement} className={style.textarea} value={props.myPostsDate.newPostText}/>
 
           <button onClick={addPost}><img className={style.iconSend} src="https://cdn1.iconfinder.com/data/icons/communicate/512/send-512.png" alt="" /></button>
         </div>

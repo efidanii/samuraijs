@@ -2,7 +2,7 @@ import React from 'react';
 import style from './MessageItem.module.css';
 
 const MessageItem = (props) => {
-
+  console.log(props)
   return <div className={style.messageItem}>{props.name}</div>
 }
 

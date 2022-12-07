@@ -1,5 +1,7 @@
 const addPost = 'ADD-POST',
-      updateNewPostText = 'UPDATE-NEW-POST-TEXT'
+      updateNewPostText = 'UPDATE-NEW-POST-TEXT',
+      updateNewMessageBody = 'UPDATE-NEW-MESSAGE-BODY',
+      sendMessage = 'SEND-MESSAGE'
 
 let store = {
     _state: {
@@ -25,19 +27,22 @@ let store = {
                     likes: 0
                 },
             ],
-            newPostText: "what's new?"
+            newPostText: ""
         },
         dialogsData: {
             messages: [{
                     id: 0,
+                    author: 'notMe',
                     name: 'Hi'
                 },
                 {
                     id: 1,
+                    author: 'notMe',
                     name: 'Yo!'
                 },
                 {
                     id: 2,
+                    author: 'notMe',
                     name: 'Привит!'
                 },
             ],
@@ -56,7 +61,8 @@ let store = {
                     avaSrc: "https://pbs.twimg.com/media/E9TNC5VWYAAuP2j.jpg",
                     name: 'Kolya'
                 },
-            ]
+            ],
+            newMessageBody: ""
         }
     },
     _callSubscriber() {
@@ -102,16 +108,25 @@ let store = {
             }
             this._state.myPostsDate.postData.unshift(newPost);
             this._callSubscriber(this._state)
+        } else 
+        if (action.type === updateNewMessageBody){
+            this._state.dialogsData.newMessageBody = action.body;
+            this._callSubscriber(this._state)
+        } else 
+        if (action.type === sendMessage){
+            let body = this._state.dialogsData.newMessageBody;
+            this._state.dialogsData.newMessageBody = '';
+            this._state.dialogsData.messages.push({
+                id: (this._state.dialogsData.messages.length + 1),
+                name: body
+            })
+            this._callSubscriber(this._state)
         }
     }
 }
-export const addPostActionCreator = () => ({type: addPost})
-
-export const updateNewPostActionCreator = (text) => {
-  return {
-    type: updateNewPostText,
-    newText: text
-  }
-}
+export const addPostActionCreator = () => ({type: addPost}),
+             updateNewPostActionCreator = (text) => ({type: updateNewPostText,newText: text}),
+             updateNewMessageBodyActionCreator = (text) => ({type: updateNewMessageBody, body: text}),
+             sendMessageActionCreator = () => ({type: sendMessage })
 export default store;
 window.store = store;
